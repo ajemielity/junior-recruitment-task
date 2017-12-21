@@ -1,8 +1,9 @@
-/*add text area when user clicked plus-button*/
-
+/*ADD TEXT AREA WHEN USER CLICK PLUS-BUTTON*/
 addTextArea = () => {
-  console.log('click')
-/*  document.getElementsByClassName('add-text-area').style.display = "block"*/
   document.getElementById('add-text-area').style.display = "block"
-/*  document.getElementById('add-text-area').setAttribute("type", "text");*/
+}
+
+/*DELETE ITEM FROM LIST*/
+deleteItem = (e) => {   /*e it's clicked button*/
+  e.parentElement.remove()   /*remove parent of the button*/
 }

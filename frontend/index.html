@@ -9,17 +9,13 @@
   <title>ToDo List</title>
 </head>
 <body>
-<!--  <div class="to-do-container"></div>-->
 <div class="js-container">
   <h1>ToDo List</h1>
   <ul>
-    <li><input type="checkbox"><label>task 1</label><button class="delete"><img src="img/trash-active.png" alt="delete"/></button></li>
-    <li><button onclick="addTextArea()"><img src="img/add.png" alt="add"/></button><input id="add-text-area" class="add-text-area" type="text" onkeypress="return runScript(event)"></li>
+    <li><input type="checkbox"><label>task 1</label><button class="delete-btn" onclick="deleteItem(this)"><img src="img/trash-active.png" alt="delete"/></button></li>
+    <li><button onclick="addTextArea()"><img src="img/add.png" alt="add"/></button><input id="add-text-area" class="hide-on-start" type="text"></li>
   </ul>
 </div>
-<!-- end js-container -->
-
-
 <script src="index.js"></script>
 
 

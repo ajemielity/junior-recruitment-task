@@ -2,12 +2,13 @@ body {
   background-color: #e9f0f4;
 }
 
+/*remove default button styles*/
 button {
   border: none;
   background-color: transparent;
   outline: none;
 }
 
-.add-text-area {
+.hide-on-start {
   display: none;
 }
