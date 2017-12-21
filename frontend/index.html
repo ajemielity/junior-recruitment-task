@@ -1,1 +1,27 @@
-plik startowy aplikacji
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="style.css" rel="stylesheet" type="text/css">
+  <title>ToDo List</title>
+</head>
+<body>
+<!--  <div class="to-do-container"></div>-->
+<div class="js-container">
+  <h1>ToDo List</h1>
+  <ul>
+    <li><input type="checkbox"><label>task 1</label><button class="delete"><img src="img/trash-active.png" alt="delete"/></button></li>
+    <li><button onclick="addTextArea()"><img src="img/add.png" alt="add"/></button><input id="add-text-area" class="add-text-area" type="text" onkeypress="return runScript(event)"></li>
+  </ul>
+</div>
+<!-- end js-container -->
+
+
+<script src="index.js"></script>
+
+
+</body>
+</html>

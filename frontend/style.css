@@ -1,0 +1,13 @@
+body {
+  background-color: #e9f0f4;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
+
+.add-text-area {
+  display: none;
+}
