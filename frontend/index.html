@@ -9,20 +9,39 @@
   <title>ToDo List</title>
 </head>
 <body>
-<div class="js-container">
-  <h1>ToDo List</h1>
-  <ul>
-    <li>
+<table id="toDoList">
+  <thead>
+  <tr>
+    <th><p>ToDo List</p></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>
       <input type="checkbox" onchange="clickCheckbox(this)">
+    </td>
+    <td>
       <p>task 1</p>
+    </td>
+    <td>
       <button class="delete-btn" onclick="deleteItem(this)">
         <img class="trash-img" src="img/trash-active.png" alt="delete"/>
       </button>
-    </li>
-    <li><input type="checkbox" onchange="clickCheckbox(this)"><p>task 2</p><button class="delete-btn" onclick="deleteItem(this)"><img class="trash-img" src="img/trash-active.png" alt="delete"/></button></li>
-    <li><button onclick="addTextArea()"><img src="img/add.png" alt="add"/></button><input id="add-text-area" class="add-text-area" type="text"></li>
-  </ul>
-</div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <button onclick="addTextArea()">
+        <img src="img/add.png" alt="add"/>
+      </button>
+    </td>
+    <td>
+      <input id="add-text-area" class="add-text-area" type="text">
+    </td>
+    <td></td>
+  </tr>
+  </tbody>
+</table>
 <script src="index.js"></script>
 
 

@@ -21,19 +21,19 @@ addTextArea = () => {
 
 /* DELETE ITEM FROM LIST */
 deleteItem = (e) => {   /* e it's clicked button */
-  e.parentElement.remove()    /* remove parent of the button (li) */
+  e.parentElement.parentElement.remove()    /* remove taks = remove table row */
 }
 
 
 /*MARK ITEM AS DONE/UNDONE*/
 clickCheckbox = (e) => {    /* e it's clicked checkbox */
-  const parent = e.parentElement    /* parent of the checkbox = li */
-  if (e.checked) {    /*change li styles if checkbox is checked */
-    parent.style.color = "#9eb2c0"
-    parent.style.textDecoration = "line-through"
+  const taskRow = e.parentElement.parentElement    /* find table row */
+  if (e.checked) {    /*change task row styles if checkbox is checked */
+    taskRow.style.color = "#9eb2c0"
+    taskRow.style.textDecoration = "line-through"
   } else {
-    parent.style.color = "#2e3641"
-    parent.style.textDecoration = "none"
+    taskRow.style.color = "#2e3641"
+    taskRow.style.textDecoration = "none"
   }
 }
 
