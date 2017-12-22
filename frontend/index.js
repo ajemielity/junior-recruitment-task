@@ -20,3 +20,17 @@ clickCheckbox = (e) => {    /* e it's clicked checkbox */
     parent.style.textDecoration = "none"
   }
 }
+
+
+/*GET TO-DO ITEMS FROM API*/
+const url = "https://todo-simple-api.herokuapp.com/todos?page=1&page_size=10"
+const xhr  = new XMLHttpRequest()
+let toDoItems
+xhr.open('GET', url, true)  // true for asynchronous
+xhr.onreadystatechange = function () {
+  if (xhr.readyState === 4 && xhr.status === 200) {
+    toDoItems = toDoItems = JSON.parse(xhr.responseText); //change responses from text to objects
+    return toDoItems
+  }
+}
+xhr.send(null);
