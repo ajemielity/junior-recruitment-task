@@ -1,18 +1,50 @@
-/*GET TO-DO ITEMS FROM API*/
-const url = "https://todo-simple-api.herokuapp.com/todos?page=1&page_size=10"   //Path /todos?page=1&page_size=10 - Fetch all todos
-const xhr  = new XMLHttpRequest()
-let toDoItems
-xhr.open('GET', url, true)  // true for asynchronous
-xhr.onreadystatechange = function () {    //function to be executed when the readyState changes
-  if (xhr.readyState === 4 && xhr.status === 200) {   //readyState === 4 means DONE, operation is complete, status === 200 means "OK"
-    toDoItems = toDoItems = JSON.parse(xhr.responseText)    //change responses from text to objects
-    return toDoItems
-  } else {
-    return false
-  }
-}
-xhr.send(null);
+window.onload = function() {
 
+
+  /* GET TO-DO ITEMS FROM API */
+  function get(url) {
+    return new Promise(function(resolve, reject) {
+      const request = new XMLHttpRequest();
+      request.open('GET', url);
+      request.onload = function() {
+        if (request.status === 200) {
+          resolve(request.response);
+        }
+        else {
+          reject(Error(request.statusText));
+        }
+      };
+      request.onerror = function() {
+        reject(Error("Network Error"));
+      };
+      request.send();
+    });
+  }
+
+  get('https://todo-simple-api.herokuapp.com/todos?page=1&page_size=10').then(function(response) {
+    console.log("Success!", response);
+    const toDoItems = JSON.parse(response).data    //change response to objects and remove array
+    console.log(toDoItems)
+/*    return toDoItems*/
+  }, function(error) {
+    console.error("Failed!", error);
+  })
+
+
+  /*ADD TO-DO ITEMS FROM API TO TABLE*/
+  function updateToDoTable(toDoItems)  {
+    console.log(toDoItems)
+    this.tasks = toDoItems
+    console.log(this.tasks)
+    this.tasks.map(function (task) {
+      console.log(task)
+      const tasksList = document.getElementById('tasksList')
+      const taskRow = document.createElement('tr')
+      tasksList.insertRow(taskRow, tasksList.firstChild)
+    })
+  }
+  updateToDoTable()
+}
 
 /* ADD TEXT AREA WHEN USER CLICK PLUS-BUTTON */
 addTextArea = () => {
@@ -24,8 +56,7 @@ deleteItem = (e) => {   /* e it's clicked button */
   e.parentElement.parentElement.remove()    /* remove taks = remove table row */
 }
 
-
-/*MARK ITEM AS DONE/UNDONE*/
+/* MARK ITEM AS DONE/UNDONE */
 clickCheckbox = (e) => {    /* e it's clicked checkbox */
   const taskRow = e.parentElement.parentElement    /* find table row */
   if (e.checked) {    /*change task row styles if checkbox is checked */
@@ -36,4 +67,3 @@ clickCheckbox = (e) => {    /* e it's clicked checkbox */
     taskRow.style.textDecoration = "none"
   }
 }
-
