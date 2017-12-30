@@ -1,5 +1,7 @@
 window.onload = function() {
 
+  let dataFromAPI,
+    toDoItems
 
   /* GET TO-DO ITEMS FROM API */
   function get(url) {
@@ -22,9 +24,12 @@ window.onload = function() {
   }
 
   get('https://todo-simple-api.herokuapp.com/todos?page=1&page_size=10').then(function(response) {
-    console.log("Success!", response);
-    const toDoItems = JSON.parse(response).data    //change response to objects and remove array
-    console.log(toDoItems)
+    if (localStorage.hasOwnProperty('toDoItems')) {
+      console.log('data in storage')
+    } else {    //save data from API in localStprage
+      dataFromAPI = JSON.parse(response).data
+      localStorage.setItem('toDoItems', JSON.stringify(dataFromAPI));
+    }
 /*    return toDoItems*/
   }, function(error) {
     console.error("Failed!", error);
@@ -32,15 +37,15 @@ window.onload = function() {
 
 
   /*ADD TO-DO ITEMS FROM API TO TABLE*/
-  function updateToDoTable(toDoItems)  {
-    console.log(toDoItems)
-    this.tasks = toDoItems
-    console.log(this.tasks)
-    this.tasks.map(function (task) {
-      console.log(task)
-      const tasksList = document.getElementById('tasksList')
-      const taskRow = document.createElement('tr')
-      tasksList.insertRow(taskRow, tasksList.firstChild)
+  function updateToDoTable()  {
+    toDoItems = JSON.parse(localStorage.getItem('toDoItems'))
+    let tasks = toDoItems
+    tasks.map(function (task) {
+      let tasksList = document.getElementById('tasksList'),
+        taskRow = document.createElement('tr')
+
+      tasksList.appendChild(taskRow)
+      taskRow.innerHTML = `<td><input type="checkbox" onchange="clickCheckbox(this)"></td><td>${task.description}</td><td><button class="delete-btn" onclick="deleteItem(this)"><img class="trash-img" src="img/trash-active.png" alt="delete"/></button></td>`
     })
   }
   updateToDoTable()
