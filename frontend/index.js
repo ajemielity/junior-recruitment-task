@@ -1,7 +1,10 @@
+let toDoItems = JSON.parse(localStorage.getItem('toDoItems')),
+  textArea = document.getElementById('add-text-area')
+
+
 window.onload = function() {
 
-  let dataFromAPI,
-    toDoItems
+  let dataFromAPI
 
   /* GET TO-DO ITEMS FROM API */
   function get(url) {
@@ -34,27 +37,52 @@ window.onload = function() {
   }, function(error) {
     console.error("Failed!", error);
   })
-
-
-  /*ADD TO-DO ITEMS FROM API TO TABLE*/
-  function updateToDoTable()  {
-    toDoItems = JSON.parse(localStorage.getItem('toDoItems'))
-    let tasks = toDoItems
-    tasks.map(function (task) {
-      let tasksList = document.getElementById('tasksList'),
-        taskRow = document.createElement('tr')
-
-      tasksList.appendChild(taskRow)
-      taskRow.innerHTML = `<td><input type="checkbox" onchange="clickCheckbox(this)"></td><td>${task.description}</td><td><button class="delete-btn" onclick="deleteItem(this)"><img class="trash-img" src="img/trash-active.png" alt="delete"/></button></td>`
-    })
-  }
-  updateToDoTable()
 }
+
+/*ADD TO-DO ITEMS FROM API TO TABLE*/
+function updateToDoTable()  {
+  toDoItems = JSON.parse(localStorage.getItem('toDoItems'))
+  toDoItems.map(function (toDoItem) {
+    let tasksList = document.getElementById('tasksList'),
+      taskRow = document.createElement('tr')
+
+    tasksList.appendChild(taskRow)
+    taskRow.innerHTML = `<td><input type="checkbox" onchange="clickCheckbox(this)"></td><td>${toDoItem.description}</td><td><button class="delete-btn" onclick="deleteItem(this)"><img class="trash-img" src="img/trash-active.png" alt="delete"/></button></td>`
+  })
+}
+updateToDoTable()
 
 /* ADD TEXT AREA WHEN USER CLICK PLUS-BUTTON */
 addTextArea = () => {
-  document.getElementById('add-text-area').style.display = "block"
+  textArea.style.display = "block"
 }
+
+/* ADD NEW TASK TO TABLE */
+textArea.addEventListener('keypress', function (e) {
+  let key = e.which || e.keyCode;
+  if (key === 13) { // 13 is enter
+    console.log('enter')
+    addNewTask()
+  }
+});
+
+addNewTask = () => {
+  let toDoItems = JSON.parse(localStorage.getItem('toDoItems'))
+  toDoItems.push({description: textArea.value, isComplete: false})
+  console.log(toDoItems)
+  localStorage.setItem('toDoItems', JSON.stringify(toDoItems));
+  hideTextArea = () => {
+    textArea.style.display = "none"
+    textArea.value = ''
+    console.log('none')
+  }
+  hideTextArea()
+  let tasksList = document.getElementById('tasksList')
+  tasksList.innerHTML = ''
+  updateToDoTable()
+}
+
+toDoItems = JSON.parse(localStorage.getItem('toDoItems'))
 
 /* DELETE ITEM FROM LIST */
 deleteItem = (e) => {   /* e it's clicked button */
